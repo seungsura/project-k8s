@@ -15,13 +15,5 @@ pipeline {
       }
     }
     
-    stage('deploy k8s') {
-      steps {
-        sh '''
-        sudo kubectl apply -f test.yaml
-        '''
-      }
-    }
-    
   }
 }
