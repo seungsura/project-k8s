@@ -10,10 +10,16 @@ pipeline {
       steps {
         sh '''
         sudo docker build -t 192.168.0.195:5000/nginx:gany .
-        sudo docker push 192.168.0.195:5000/nginx:gany
         '''
       }
     }
-    
+   
+    stage('docker push') {
+      steps {
+        sh '''
+        sudo docker push 192.168.0.195:5000/nginx:gany
+        '''
+      }
+    } 
   }
 }
