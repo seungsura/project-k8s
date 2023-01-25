@@ -19,6 +19,7 @@ pipeline {
 	   docker.withRegistry('192.168.0.195:5000', dGVzdDp0ZXN0){
 		appImage.push("${env.BUILD_NUMBER}")
 		appImage.push("latest")
+	}
       }
     } 
   }
