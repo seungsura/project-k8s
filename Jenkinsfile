@@ -22,6 +22,7 @@ pipeline {
 		appImage.push("latest")
 	'''
 	}
-      }
-    } 
+      }     
+    }
   }
+}
