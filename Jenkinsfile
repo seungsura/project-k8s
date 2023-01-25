@@ -9,7 +9,7 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        appImage = docker build 192.168.0.195:5000/nginx
+        sudo docker build -t 192.168.0.195:5000/nginx:gany .
         '''
       }
     }
@@ -17,12 +17,9 @@ pipeline {
     stage('docker push') {
       steps {
         sh ''' 
-	docker.withRegistry('192.168.0.195:5000', dGVzdDp0ZXN0){
-		appImage.push("${env.BUILD_NUMBER}")
-		appImage.push("latest")
+	sudo docker push 192.168.0.195:5000/nginx:gany
 	'''
 	}
       }     
     }
   }
-
