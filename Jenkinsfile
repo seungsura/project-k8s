@@ -9,7 +9,7 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        sudo docker build -t 192.168.0.195:5000/nginx:gany .
+        appImage = docker build("192.168.0.195:5000/nginx"))
         '''
       }
     }
@@ -25,3 +25,4 @@ pipeline {
       }     
     }
   }
+}
