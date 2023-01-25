@@ -12,16 +12,7 @@ pipeline {
         sudo docker build -t 192.168.0.195:5000/nginx:gany .
         '''
       }
-    }
-   stage ('Docker build'){
-    environment{
-        gitTags = sh(retrunStdout: true, script: 'git describe --tags --abbrev=0').trim()
-    }
-    steps {
-    	print gitTags
-    }
-   }
-	  
+    }	  
     stage('docker push') {
       steps {
         sh ''' 
