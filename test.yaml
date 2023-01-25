@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: test-pod
-      image: nginx:latest
+      image: 192.168.0.195:5000/nginx:latest
 ---
 apiVersion: v1
 kind: Service
