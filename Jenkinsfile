@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     dockerHubRegistry = '192.168.0.5000/ra'
-    dockerHubRegistryCredential = '{test}'
+    dockerHubRegistryCredential = 'test'
   }
   stages {
     stage('git scm update') {
