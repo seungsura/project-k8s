@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    dockerHubRegistry = '192.168.0.5000/ra'
+    dockerHubRegistry = '{192.168.0.5000}/{ra}'
     dockerHubRegistryCredential = '{dGVzdDp0ZXN0}'
   }
   stages {
