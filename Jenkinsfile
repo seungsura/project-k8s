@@ -18,7 +18,7 @@ pipeline {
     }	  
     stage('docker push') {
       steps {
-	withDockerRegistry([ credentialsId: "$dockerHubRegistryCredential", url: "http://$dockerHubRegistry" ]) {
+	withDockerRegistry([ credentialsId: "$dockerHubRegistryCredential", url: "http://192.168.0.195:5000" ]) {
         sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
         sh "sudo docker push ${dockerHubRegistry}:latest"
       	}
