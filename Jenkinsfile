@@ -13,8 +13,8 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        sudo bash docker build . -t ${dockerHubRegistry}:${currentBuild.number}
-	sudo bash docker build . -t ${dockerHubRegistry}:latest
+        docker build . -t ${dockerHubRegistry}:${currentBuild.number}
+	docker build . -t ${dockerHubRegistry}:latest
         '''
       }
     }	  
