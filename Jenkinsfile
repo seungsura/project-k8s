@@ -18,11 +18,10 @@ pipeline {
     }	  
     stage('docker push') {
       steps {
-	steps{
-	  sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
-          sh "sudo docker push ${dockerHubRegistry}:latest"
-      }	
-    }     
+        sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
+        sh "sudo docker push ${dockerHubRegistry}:latest"
+      	
+    }   
   }
 }
 }
