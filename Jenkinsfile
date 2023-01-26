@@ -12,19 +12,15 @@ pipeline {
     }
     stage('docker build') {
       steps {
-        sh '''
-        docker build . -t ${dockerHubRegistry}:${currentBuild.number}
-	docker build . -t ${dockerHubRegistry}:latest
-        '''
+        sh "docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
+	sh "docker build . -t ${dockerHubRegistry}:latest"
       }
     }	  
     stage('docker push') {
       steps {
         withDockerRegistry([ credentialsID: dockerHubRegistryCredential ]) {
-          sh '''
-	  docker push ${dockerHubRegistry}:${currentBuild.number}
-          docker push ${dockerHubRegistry}:latest
-	  '''
+	  sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
+          sh "docker push ${dockerHubRegistry}:latest"
       }	
     }     
   }
