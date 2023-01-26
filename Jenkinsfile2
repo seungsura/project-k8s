@@ -12,15 +12,16 @@ pipeline {
     }
     stage('docker build') {
       steps {
-        sh "sudo docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
+        sh "sudo docker build . -t ${dockerHubRegistry}:${env.BUILD_NUMBER}"
+	sh "sudo docker build . -t ${dockerHubRegistry}:${latest}"
       }
     }	  
     stage('docker push') {
       steps {
         withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
-	  sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
-      }	
-    }     
+	  sh "sudo docker push ${dockerHubRegistry}:${env.BUILD_NUMBER}"
+     }	
+    }      
+   }
   }
-}
 }
