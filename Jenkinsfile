@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  environment {
+    dockerHubRegistry = '192.168.0.5000/ra'
+    dockerHubRegistryCredential = '{dGVzdDp0ZXN0}'
+  }
   stages {
     stage('git scm update') {
       steps {
@@ -9,16 +13,17 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        sudo docker build -t 192.168.0.195:5000/nginx:gany .
+        sudo docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
+	sudo docker build . -t ${dockerHubRegistry}:latest
         '''
       }
     }	  
     stage('docker push') {
       steps {
-        sh ''' 
-	sudo docker push 192.168.0.195:5000/nginx:gany
-	'''
-	}
-      }     
-    }
+        withDockerRegistry([ credentialsID: dockerHubRegistryCredential, url: "" ]) {
+          sh "docker push ${dockerHubRegistry}:${currentBuild.number}"
+          sh "docker push ${dockerHubRegistry}:latest"
+      }	
+    }     
   }
+}
