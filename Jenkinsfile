@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     dockerHubRegistry = '192.168.0.5000/ra'
-    dockerHubRegistryCredential = '{dockercredential}'
+    dockerHubRegistryCredential = '{test}'
   }
   stages {
     stage('git scm update') {
@@ -18,6 +18,7 @@ pipeline {
     }	  
     stage('docker push') {
       steps {
+	withDockerRegistry([ credentialsId: "$dockerHubRegistryCredential", url: "http://$dockerHubRegistry"
         sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
         sh "sudo docker push ${dockerHubRegistry}:latest"
       	
