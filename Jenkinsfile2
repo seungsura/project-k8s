@@ -7,20 +7,18 @@ pipeline {
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/seungsura/project-k8s', branch: 'main'
+        git url: 'https://github.com/seungsura/project-k8s', branch: 'master'
       }
     }
     stage('docker build') {
       steps {
         sh "sudo docker build . -t ${dockerHubRegistry}:${currentBuild.number}"
-	sh "sudo docker build . -t ${dockerHubRegistry}:latest"
       }
     }	  
     stage('docker push') {
       steps {
         withDockerRegistry([ credentialsId: dockerHubRegistryCredential, url: "" ]) {
 	  sh "sudo docker push ${dockerHubRegistry}:${currentBuild.number}"
-          sh "sudo docker push ${dockerHubRegistry}:latest"
       }	
     }     
   }
