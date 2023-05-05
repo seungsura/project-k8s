@@ -24,6 +24,13 @@ pipeline {
         sh "sudo docker build . -t ${dockerHubRegistry}/istio-fleetman-position-simulator:latest"
         sh "sudo docker build . -t ${dockerHubRegistry}/istio-fleetman-api-gateway:${currentBuild.number}"
         sh "sudo docker build . -t ${dockerHubRegistry}/istio-fleetman-api-gateway:latest"
+				post {
+                failure {
+                    echo 'Docker build failure'
+                    sh "docker system prune -a --force"
+                }
+                success {
+                    echo 'Docker build success'
       }
     }
     stage('docker push') {
@@ -41,6 +48,36 @@ pipeline {
         sh "sudo docker push ${dockerHubRegistry}/istio-fleetman-position-simulator:latest"
         sh "sudo docker push ${dockerHubRegistry}/istio-fleetman-api-gateway:${currentBuild.number}"
         sh "sudo docker push ${dockerHubRegistry}/istio-fleetman-api-gateway:latest"
+				post {
+                failure {
+                    echo 'Docker image Push failure'
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-webapp-angular:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-webapp-angular:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-vehicle-telemetry:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-vehicle-telemetry:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-staff-service:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-staff-service:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-tracker:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-tracker:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-simulator:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-simulator:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-api-gateway:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-api-gateway:latest"
+                }
+                success {
+                    echo 'Docker image Push success'
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-webapp-angular:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-webapp-angular:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-vehicle-telemetry:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-vehicle-telemetry:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-staff-service:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-staff-service:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-tracker:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-tracker:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-simulator:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-position-simulator:latest"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-api-gateway:${currentBuild.number}"
+                    sh "docker image rm -f ${dockerHubRegistry}/istio-fleetman-api-gateway:latest"
         }
     }
   }
